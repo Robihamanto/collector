@@ -7,45 +7,43 @@
         android:layout_height="match_parent"
         tools:context=".Controller.CollectionActivity" android:background="@color/colorDarkGrey">
 
-    <View
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:id="@+id/view" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:background="@color/colorOrange"/>
-    <TextView
-            android:text="Find Number :"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:id="@+id/find" android:textColor="@android:color/white"
-            android:textSize="10sp" android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/view"
-            app:layout_constraintTop_toTopOf="@+id/view"
-            app:layout_constraintBottom_toBottomOf="@+id/view"/>
-    <TextView
-            android:text="42"
-            android:layout_width="53dp"
-            android:layout_height="44dp"
-            android:id="@+id/currentNumberShouldPickTextView" android:textColor="@android:color/white"
-            android:textSize="36sp"
-            app:layout_constraintTop_toTopOf="@+id/view"
-            app:layout_constraintBottom_toBottomOf="@+id/view" app:layout_constraintVertical_bias="0.444"
-            app:layout_constraintStart_toEndOf="@+id/find"/>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/numberListView"
-            app:layout_constraintStart_toEndOf="@+id/currentNumberShouldPickTextView"
-            app:layout_constraintEnd_toEndOf="@+id/view"
-            android:gravity="center|fill" android:layout_marginEnd="16dp">
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="411dp"
+            android:layout_height="0dp"
+            android:id="@+id/numberListView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"/>
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="80dp"
+            android:layout_height="300dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:background="@color/colorOrange">
+
+        <TextView
+                android:text="Find Number :"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/find" android:textColor="@android:color/white"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp" android:layout_marginStart="4dp"/>
+        <TextView
+                android:text="42"
+                android:id="@+id/currentNumberShouldPickTextView"
+                android:textColor="@android:color/white" android:textSize="36sp" android:textStyle="bold"
+                android:layout_height="wrap_content" android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/find" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="4dp"/>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/currentNumberShouldPickTextView"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" android:layout_marginTop="4dp">
+                app:layout_constraintTop_toBottomOf="@+id/currentNumberShouldPickTextView"
+                app:layout_constraintStart_toStartOf="@+id/currentNumberShouldPickTextView"
+                android:id="@+id/current_status">
             <TextView
                     android:text="Current Status :"
                     android:layout_width="wrap_content"
@@ -138,11 +136,11 @@
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toEndOf="@+id/currentNumberShouldPickTextView"
-                android:layout_marginStart="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" android:layout_marginEnd="12dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sensor_status"
+                app:layout_constraintTop_toBottomOf="@+id/current_status"
+                app:layout_constraintStart_toStartOf="@+id/current_status" android:layout_marginTop="4dp">
             <TextView
                     android:text="Sensor State :"
                     android:layout_width="wrap_content"
@@ -236,9 +234,9 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/currentNumberShouldPickTextView"
-                android:layout_marginStart="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" android:layout_marginEnd="12dp">
+                app:layout_constraintTop_toBottomOf="@+id/sensor_status"
+                app:layout_constraintStart_toStartOf="@+id/sensor_status" android:id="@+id/sensor_state"
+                android:layout_marginTop="4dp">
             <TextView
                     android:text="Sensor State :"
                     android:layout_width="wrap_content"
@@ -300,41 +298,14 @@
                         android:textColor="@android:color/white"
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" tools:layout_editor_absoluteY="38dp"
-                    tools:layout_editor_absoluteX="146dp">
-                <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
-                        tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp"/>
-                <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
-                        tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle7"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-                <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
-                        tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle8"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-            </LinearLayout>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/currentNumberShouldPickTextView"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" android:layout_marginTop="4dp">
+                app:layout_constraintTop_toBottomOf="@+id/sensor_state"
+                app:layout_constraintStart_toStartOf="@+id/sensor_state" android:layout_marginTop="4dp"
+                android:id="@+id/touch_state">
             <TextView
                     android:text="Touch State :"
                     android:layout_width="wrap_content"
@@ -424,11 +395,5 @@
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/view" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/numberListView"/>
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
