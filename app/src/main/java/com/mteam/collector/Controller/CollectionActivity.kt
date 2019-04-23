@@ -22,6 +22,19 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
     var collectionNumbers = DataService.getCollection()
     var counter = 0
 
+    //Current Status
+    var currentNumber  = 0
+
+    var currentX = 0.0
+    var currentY = 0.0
+    var currentZ = 0.0
+
+    var currentRawX = 0.0
+    var currentRawY = 0.0
+
+    var currentTouchPreassure = 0.0
+    var currentTouchSize = 0.0
+
     val numberShouldPick = listOf(
         10, 48, 37, 15, 77, 30, 9, 58, 24, 14, 67, 37
     )
@@ -39,8 +52,17 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         val currentNumber = numberShouldPick[counter]
         currentNumberShouldPickTextView.text = currentNumber.toString()
 
-        // Reset List to The Top
-        numberListView.scrollToPosition(0)
+        //CurrentSensor
+        currentSensorXTextView.text = "${currentX}"
+        currentSensorYTextView.text = "${currentY}"
+        currentSensorZTextView.text = "${currentZ}"
+
+        currentSensorXRawTextView.text = "${currentRawX}"
+        currentSensorYRawTextView.text = "${currentRawY}"
+
+        currentTouchPreassureTextView.text = "${currentTouchPreassure}"
+        currentTouchSizeTextView.text = "${currentTouchSize}"
+
     }
 
     fun setupList() {
@@ -48,6 +70,8 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         adapter = CollectionRecycleViewAdapter(this, collectionNumbers) { collectNumber ->
             collectionNumberDidTap()
             adapter.notifyDataSetChanged()
+            // Reset List to The Top
+            numberListView.scrollToPosition(0)
         }
         numberListView.adapter = adapter
 
@@ -59,13 +83,15 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
     fun setupListListener() {
         numberListView.setOnTouchListener(object : View.OnTouchListener{
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                currentSensorXTextView.text = "${event?.getX()}"
-                currentSensorYTextView.text = "${event?.getY()}"
-                currentTouchPreassureTextView.text = "${event?.getPressure()}"
-                currentTouchSizeTextView.text = "${event?.getSize()}"
 
-                println(event?.getY())
+                currentRawX = event?.getX()?.toDouble() ?: 0.0
+                currentRawY = event?.getY()?.toDouble() ?: 0.0
 
+                currentTouchPreassure = event?.getPressure()?.toDouble() ?: 0.0
+                currentTouchSize = event?.getSize()?.toDouble() ?: 0.0
+
+                //Update UI
+                setupUI()
 
                 return v?.onTouchEvent(event) ?: true
             }
@@ -97,14 +123,30 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
     }
 
 
-    private var mSensorManager : SensorManager ?= null
-    private var mAccelerometer : Sensor ?= null
+    private lateinit var sensorManager: SensorManager
+    private var mLight: Sensor? = null
+
+    override fun onResume() {
+        super.onResume()
+        mLight.also {light ->
+            sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(this)
+    }
 
     fun setupSensor() {
+
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        mLight = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
         // get reference of the service
-        mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        //mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         // focus in accelerometer
-        mAccelerometer = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        //mAccelerometer = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
     }
 
 
@@ -114,10 +156,9 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         //currentSensorXTextView.text = "${event?.values}"
-        println(event?.values?.get(0))
-        println(event?.values?.get(1))
-        println(event?.values?.get(2))
-        println(event?.values)
+        currentX = event?.values?.get(0)?.toDouble() ?: 0.0
+        currentY = event?.values?.get(1)?.toDouble() ?: 0.0
+        currentZ = event?.values?.get(2)?.toDouble() ?: 0.0
     }
 
 }

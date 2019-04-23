@@ -17,7 +17,7 @@
             app:layout_constraintVertical_bias="0.0"/>
     <android.support.constraint.ConstraintLayout
             android:layout_width="80dp"
-            android:layout_height="300dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="350dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" android:background="@color/colorOrange">
 
         <TextView
@@ -75,7 +75,7 @@
                         android:text="37"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="52dp"
-                        tools:layout_editor_absoluteX="207dp" android:id="@+id/currentCountNumberTextView"
+                        tools:layout_editor_absoluteX="207dp" android:id="@+id/currentSessionTextView"
                         android:textColor="@android:color/white"
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
@@ -102,7 +102,7 @@
                         android:text="37"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
-                        tools:layout_editor_absoluteX="146dp" android:id="@+id/currentTotalFlickTextView"
+                        tools:layout_editor_absoluteX="146dp" android:id="@+id/currentNumberClickedTextView"
                         android:textColor="@android:color/white"
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
@@ -129,7 +129,7 @@
                         android:text="3"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
-                        tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle8"
+                        tools:layout_editor_absoluteX="209dp" android:id="@+id/currentTotalFlickTextView"
                         android:textColor="@android:color/white"
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
@@ -149,7 +149,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="10sp"/>
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
                     tools:layout_editor_absoluteX="146dp">
@@ -161,13 +161,6 @@
                         android:textColor="@android:color/white"
                         android:textSize="8sp"/>
                 <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="52dp"
-                        tools:layout_editor_absoluteX="207dp" android:id="@+id/numberTitle2"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-                <TextView
                         android:text="37"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="52dp"
@@ -176,7 +169,7 @@
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
                     tools:layout_editor_absoluteX="146dp">
@@ -188,13 +181,6 @@
                         android:textColor="@android:color/white"
                         android:textSize="8sp"/>
                 <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
-                        tools:layout_editor_absoluteX="146dp" android:id="@+id/flickTitle2"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-                <TextView
                         android:text="37"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
@@ -203,7 +189,7 @@
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" tools:layout_editor_absoluteY="38dp"
                     tools:layout_editor_absoluteX="146dp">
@@ -214,13 +200,6 @@
                         tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle"
                         android:textColor="@android:color/white"
                         android:textSize="8sp"/>
-                <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
-                        tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle7"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
                 <TextView
                         android:text="3"
                         android:layout_width="wrap_content"
@@ -245,7 +224,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="10sp"/>
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
                     tools:layout_editor_absoluteX="146dp">
@@ -257,22 +236,15 @@
                         android:textColor="@android:color/white"
                         android:textSize="8sp"/>
                 <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="52dp"
-                        tools:layout_editor_absoluteX="207dp" android:id="@+id/numberTitle2"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-                <TextView
                         android:text="37"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="52dp"
-                        tools:layout_editor_absoluteX="207dp" android:id="@+id/currentSensorXTextView"
+                        tools:layout_editor_absoluteX="207dp" android:id="@+id/currentSensorXRawTextView"
                         android:textColor="@android:color/white"
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
                     tools:layout_editor_absoluteX="146dp">
@@ -284,17 +256,10 @@
                         android:textColor="@android:color/white"
                         android:textSize="8sp"/>
                 <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
-                        tools:layout_editor_absoluteX="146dp" android:id="@+id/flickTitle2"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-                <TextView
                         android:text="37"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
-                        tools:layout_editor_absoluteX="146dp" android:id="@+id/currentSensorYTextView"
+                        tools:layout_editor_absoluteX="146dp" android:id="@+id/currentSensorYRawTextView"
                         android:textColor="@android:color/white"
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
@@ -314,7 +279,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="10sp"/>
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
                     tools:layout_editor_absoluteX="146dp">
@@ -326,13 +291,6 @@
                         android:textColor="@android:color/white"
                         android:textSize="8sp"/>
                 <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="52dp"
-                        tools:layout_editor_absoluteX="207dp" android:id="@+id/numberTitle2"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-                <TextView
                         android:text="37"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="52dp"
@@ -341,7 +299,7 @@
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
                     tools:layout_editor_absoluteX="146dp">
@@ -353,44 +311,10 @@
                         android:textColor="@android:color/white"
                         android:textSize="8sp"/>
                 <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
-                        tools:layout_editor_absoluteX="146dp" android:id="@+id/flickTitle2"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-                <TextView
                         android:text="37"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" tools:layout_editor_absoluteY="60dp"
                         tools:layout_editor_absoluteX="146dp" android:id="@+id/currentTouchSizeTextView"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" tools:layout_editor_absoluteY="38dp"
-                    tools:layout_editor_absoluteX="146dp">
-                <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
-                        tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp"/>
-                <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
-                        tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle7"
-                        android:textColor="@android:color/white"
-                        android:textSize="8sp" android:layout_weight="1"/>
-                <TextView
-                        android:text=" "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="49dp"
-                        tools:layout_editor_absoluteX="209dp" android:id="@+id/sessionTitle8"
                         android:textColor="@android:color/white"
                         android:textSize="8sp" android:layout_weight="1"/>
             </LinearLayout>
