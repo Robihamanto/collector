@@ -244,6 +244,11 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        writeCsvFile()
+    }
+
 
     fun writeCsvFile() {
 
@@ -253,7 +258,7 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         var fileWriter: FileWriter? = null
 
         try {
-            fileWriter = FileWriter("customer.csv")
+            fileWriter = FileWriter("rawData1.csv")
 
             fileWriter.append(CSV_HEADER)
             fileWriter.append('\n')
@@ -281,8 +286,8 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
             e.printStackTrace()
         } finally {
             try {
-                fileWriter!!.flush()
-                fileWriter.close()
+                fileWriter?.flush()
+                fileWriter?.close()
             } catch (e: IOException) {
                 println("Flushing/closing error!")
                 e.printStackTrace()
