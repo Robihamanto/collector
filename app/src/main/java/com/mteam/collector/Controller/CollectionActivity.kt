@@ -1,5 +1,6 @@
 package com.mteam.collector.Controller
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,12 +14,13 @@ import android.hardware.SensorManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
-import android.support.v4.view.VelocityTrackerCompat.getXVelocity
-import android.support.v4.view.VelocityTrackerCompat.getYVelocity
-import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.VelocityTracker
 import com.mteam.collector.Model.RawData
+import com.mteam.collector.R
 import com.mteam.collector.R.*
+import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 
@@ -50,11 +52,23 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_collection)
+        setupContentView()
         setupUI()
         setupList()
         setupListListener()
         setupSensor()
+    }
+
+    fun setupContentView() {
+        setContentView(layout.activity_collection)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    @SuppressLint("ResourceType")
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.layout.collection_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun setupUI() {
@@ -252,31 +266,33 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     fun writeCsvFile() {
 
-        val CSV_HEADER = "Pitch,Roll,Azimuth,Raw X,Raw Y, Touch Preassure, Touch Size"
-
+        val CSV_HEADER = "Pitch,Roll,Azimuth,RawX,RawY,TouchPreassure,TouchSize"
 
         var fileWriter: FileWriter? = null
 
         try {
-            fileWriter = FileWriter("rawData1.csv")
-
+            println("Writ 1")
+            fileWriter = FileWriter("collectorRawData.csv")
+            println("Writ 2")
             fileWriter.append(CSV_HEADER)
+            println("Writ 3")
             fileWriter.append('\n')
-
+            println("Writ 4")
             for (data in rawData) {
-                fileWriter.append(data.pitch.toString())
+                println("Writ ${data.pitch}, ${data.roll}, ${data.azimuth}, ${data.rawX}, ${data.rawX}, ${data.rawY}, ${data.touchPreassure}, ${data.touchSize}")
+                fileWriter.append("${data.pitch}")
                 fileWriter.append(',')
-                fileWriter.append(data.roll.toString())
+                fileWriter.append("${data.roll}")
                 fileWriter.append(',')
-                fileWriter.append(data.azimuth.toString())
+                fileWriter.append("${data.azimuth}")
                 fileWriter.append(',')
-                fileWriter.append(data.rawX.toString())
+                fileWriter.append("${data.rawX}")
                 fileWriter.append(',')
-                fileWriter.append(data.rawY.toString())
+                fileWriter.append("${data.rawY}")
                 fileWriter.append(',')
-                fileWriter.append(data.touchPreassure.toString())
+                fileWriter.append("${data.touchPreassure}")
                 fileWriter.append(',')
-                fileWriter.append(data.touchSize.toString())
+                fileWriter.append("${data.touchSize}")
                 fileWriter.append('\n')
             }
 
