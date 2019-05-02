@@ -15,14 +15,15 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.view.Menu
-import android.view.MenuItem
 import android.view.VelocityTracker
 import com.mteam.collector.Model.RawData
-import com.mteam.collector.R
 import com.mteam.collector.R.*
-import java.io.File
 import java.io.FileWriter
 import java.io.IOException
+import android.os.Handler
+import android.os.SystemClock
+
+
 
 
 class CollectionActivity : AppCompatActivity(), SensorEventListener {
@@ -61,13 +62,36 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     fun setupContentView() {
         setContentView(layout.activity_collection)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(com.mteam.collector.R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    fun simulateTouch() {
+
+        println("simulate done")
+    }
+
+    fun singleTouch() {
+        // Obtain MotionEvent object
+        val downTime = SystemClock.uptimeMillis()
+        val eventTime = SystemClock.uptimeMillis() + 1000
+        val x = 600f
+        val y = 1200f
+        // List of meta states found here: developer.android.com/reference/android/view/KeyEvent.html#getMetaState()
+        val metaState = 0
+        val motionEvent = MotionEvent.obtain(
+            downTime,
+            eventTime,
+            MotionEvent.ACTION_DOWN,
+            x,
+            y,
+            metaState
+        )
     }
 
     @SuppressLint("ResourceType")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.layout.collection_menu, menu)
+        menuInflater.inflate(com.mteam.collector.R.layout.collection_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -124,9 +148,18 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
     private val DEBUG_TAG = "Velocity"
     private var mVelocityTracker: VelocityTracker? = null
 
-    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
 
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
         val evenAction = event?.action
+
+        currentRawX = event?.getX()?.toDouble() ?: 0.0
+        currentRawY = event?.getY()?.toDouble() ?: 0.0
+
+        currentTouchPreassure = event?.getPressure()?.toDouble() ?: 0.0
+        currentTouchSize = event?.getSize()?.toDouble() ?: 0.0
+
+        println("user did tap here X: ${currentRawX} Y: ${currentRawY} cui ")
+
 
         when (evenAction) {
             MotionEvent.ACTION_DOWN -> {
@@ -220,6 +253,11 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
+        Handler().postDelayed({
+            simulateTouch()
+            setupUI()
+        }, 3000)
+
         mLight.also { light ->
             sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL)
         }
@@ -246,6 +284,8 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         currentX = event?.values?.get(0)?.toDouble() ?: 0.0
         currentY = event?.values?.get(1)?.toDouble() ?: 0.0
         currentZ = event?.values?.get(2)?.toDouble() ?: 0.0
+
+
     }
 
     var rawData = listOf<RawData>()
@@ -260,7 +300,7 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        writeCsvFile()
+        //writeCsvFile()
     }
 
 
@@ -270,9 +310,11 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
         var fileWriter: FileWriter? = null
 
+        fileWriter = FileWriter("collectorRawData.csv")
+
         try {
             println("Writ 1")
-            fileWriter = FileWriter("collectorRawData.csv")
+
             println("Writ 2")
             fileWriter.append(CSV_HEADER)
             println("Writ 3")
@@ -295,7 +337,6 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
                 fileWriter.append("${data.touchSize}")
                 fileWriter.append('\n')
             }
-
             println("Write CSV successfully!")
         } catch (e: Exception) {
             println("Writing CSV error!")

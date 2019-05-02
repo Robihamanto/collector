@@ -20,9 +20,12 @@
         <activity android:name=".Controller.DataEntryActivity">
         </activity>
         <activity android:name=".Controller.MainActivity">
+
         </activity>
     </application>
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 </manifest>
