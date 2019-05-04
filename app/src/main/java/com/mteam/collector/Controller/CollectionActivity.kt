@@ -53,17 +53,11 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupContentView()
+        setContentView(layout.activity_collection)
         setupUI()
         setupList()
         setupListListener()
         setupSensor()
-    }
-
-    fun setupContentView() {
-        setContentView(layout.activity_collection)
-        setSupportActionBar(findViewById(com.mteam.collector.R.id.toolbar))
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     fun simulateTouch() {
