@@ -152,9 +152,6 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         currentTouchPreassure = event?.getPressure()?.toDouble() ?: 0.0
         currentTouchSize = event?.getSize()?.toDouble() ?: 0.0
 
-        println("user did tap here X: ${currentRawX} Y: ${currentRawY} cui ")
-
-
         when (evenAction) {
             MotionEvent.ACTION_DOWN -> {
                 // Reset the velocity tracker back to its initial state.
@@ -200,6 +197,15 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
                 // Return a VelocityTracker object back to be re-used by others.
                 mVelocityTracker?.recycle()
                 mVelocityTracker = null
+
+
+                //Print current flick status
+                println("User did tap for flick ${currentFlick} " +
+                        "RawX: ${currentRawX} RawY: ${currentRawY} " +
+                        "Pitch: ${currentX} Roll: ${currentY} Azimuth: ${currentZ} " +
+                        "Touch Preassure: ${currentTouchPreassure} Touch Size: ${currentTouchSize}")
+
+                currentFlick += 1
             }
         }
 
