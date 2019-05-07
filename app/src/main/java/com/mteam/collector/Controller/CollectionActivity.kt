@@ -27,8 +27,9 @@ import android.os.Handler
 import android.os.SystemClock
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.widget.Toast
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CollectionActivity : AppCompatActivity(), SensorEventListener {
@@ -336,9 +337,14 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onDestroy() {
         super.onDestroy()
-
         writeCsvFile()
+    }
 
+    fun getCurrentTime(): String {
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        System.out.println(" C DATE is  " +currentDate)
+        return currentDate
     }
 
 
@@ -348,13 +354,10 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         var fileWriter: FileWriter? = null
 
         try {
-            println("Write 1")
-            fileWriter = FileWriter(File(Environment.getExternalStorageDirectory(), "collectorRawData.csv"))
-            println("Write 2")
+            val currentTime = getCurrentTime()
+            fileWriter = FileWriter(File("${Environment.getExternalStorageDirectory()}/collector", "CollectorRawData_${currentTime}.csv"))
             fileWriter.append(CSV_HEADER)
-            println("Write 3")
             fileWriter.append('\n')
-            println("Write 4")
             for (data in rawData) {
                 println("Write ${data.pitch}, ${data.roll}, ${data.azimuth}, ${data.rawX}, ${data.rawX}, ${data.rawY}, ${data.touchPreassure}, ${data.touchSize}")
                 fileWriter.append("${data.pitch}")
