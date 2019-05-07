@@ -1,7 +1,9 @@
 package com.mteam.collector.Controller
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +16,7 @@ import android.hardware.SensorManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.os.Environment
 import android.view.Menu
 import android.view.VelocityTracker
 import com.mteam.collector.Model.RawData
@@ -22,8 +25,10 @@ import java.io.FileWriter
 import java.io.IOException
 import android.os.Handler
 import android.os.SystemClock
-
-
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.widget.Toast
+import java.io.File
 
 
 class CollectionActivity : AppCompatActivity(), SensorEventListener {
@@ -54,6 +59,7 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_collection)
+        requestWriteExternalPermission()
         setupUI()
         setupList()
         setupListListener()
@@ -92,6 +98,9 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
     fun setupUI() {
         val currentNumber = numberShouldPick[counter]
         currentNumberShouldPickTextView.text = currentNumber.toString()
+
+        //CurrentStatus
+        currentTotalFlickTextView.text = currentFlick.toString()
 
         //CurrentSensor
         currentSensorXTextView.text = "${currentX}"
@@ -179,6 +188,7 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
                 }
             }
+
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
 
                 //Append Data to RawData
@@ -298,30 +308,55 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+    fun requestWriteExternalPermission() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            println("User Permission Granted yeay 🎉")
+        }
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
-        //writeCsvFile()
+
+        writeCsvFile()
+
     }
 
 
     fun writeCsvFile() {
 
         val CSV_HEADER = "Pitch,Roll,Azimuth,RawX,RawY,TouchPreassure,TouchSize"
-
         var fileWriter: FileWriter? = null
 
-        fileWriter = FileWriter("collectorRawData.csv")
-
         try {
-            println("Writ 1")
-
-            println("Writ 2")
+            println("Write 1")
+            fileWriter = FileWriter(File(Environment.getExternalStorageDirectory(), "collectorRawData.csv"))
+            println("Write 2")
             fileWriter.append(CSV_HEADER)
-            println("Writ 3")
+            println("Write 3")
             fileWriter.append('\n')
-            println("Writ 4")
+            println("Write 4")
             for (data in rawData) {
-                println("Writ ${data.pitch}, ${data.roll}, ${data.azimuth}, ${data.rawX}, ${data.rawX}, ${data.rawY}, ${data.touchPreassure}, ${data.touchSize}")
+                println("Write ${data.pitch}, ${data.roll}, ${data.azimuth}, ${data.rawX}, ${data.rawX}, ${data.rawY}, ${data.touchPreassure}, ${data.touchSize}")
                 fileWriter.append("${data.pitch}")
                 fileWriter.append(',')
                 fileWriter.append("${data.roll}")
@@ -350,6 +385,5 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
                 e.printStackTrace()
             }
         }
-
     }
 }
