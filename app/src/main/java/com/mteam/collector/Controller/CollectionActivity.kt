@@ -341,7 +341,7 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
     }
 
     fun getCurrentTime(): String {
-        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
         System.out.println(" C DATE is  " +currentDate)
         return currentDate
@@ -354,8 +354,8 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         var fileWriter: FileWriter? = null
 
         try {
-            val currentTime = getCurrentTime()
-            fileWriter = FileWriter(File("${Environment.getExternalStorageDirectory()}/collector", "CollectorRawData_${currentTime}.csv"))
+            val currentTime = getCurrentTime().toString()
+            fileWriter = FileWriter(File(android.os.Environment.getExternalStorageDirectory(), "CollectorRawData_${currentTime}.csv"))
             fileWriter.append(CSV_HEADER)
             fileWriter.append('\n')
             for (data in rawData) {
