@@ -238,7 +238,7 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
             counter += 1
         }
 
-        if (counter == 4) {
+        if (counter == 10) {
             writeCsvFile()
         }
     }

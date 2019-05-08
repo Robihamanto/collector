@@ -93,6 +93,72 @@ class CollectionActivityTest4NumberNsaveCsv {
             )
         )
         recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(14, click()))
+
+        val recyclerView5 = onView(
+            allOf(
+                withId(R.id.numberListView),
+                childAtPosition(
+                    withClassName(`is`("android.support.constraint.ConstraintLayout")),
+                    1
+                )
+            )
+        )
+        recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(76, click()))
+
+        val recyclerView6 = onView(
+            allOf(
+                withId(R.id.numberListView),
+                childAtPosition(
+                    withClassName(`is`("android.support.constraint.ConstraintLayout")),
+                    1
+                )
+            )
+        )
+        recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(29, click()))
+
+        val recyclerView7 = onView(
+            allOf(
+                withId(R.id.numberListView),
+                childAtPosition(
+                    withClassName(`is`("android.support.constraint.ConstraintLayout")),
+                    1
+                )
+            )
+        )
+        recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(8, click()))
+
+        val recyclerView8 = onView(
+            allOf(
+                withId(R.id.numberListView),
+                childAtPosition(
+                    withClassName(`is`("android.support.constraint.ConstraintLayout")),
+                    1
+                )
+            )
+        )
+        recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(57, click()))
+
+        val recyclerView9 = onView(
+            allOf(
+                withId(R.id.numberListView),
+                childAtPosition(
+                    withClassName(`is`("android.support.constraint.ConstraintLayout")),
+                    1
+                )
+            )
+        )
+        recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(23, click()))
+
+        val recyclerView10 = onView(
+            allOf(
+                withId(R.id.numberListView),
+                childAtPosition(
+                    withClassName(`is`("android.support.constraint.ConstraintLayout")),
+                    1
+                )
+            )
+        )
+        recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(13, click()))
     }
 
     fun click(): ViewAction {
@@ -144,6 +210,66 @@ class CollectionActivityTest4NumberNsaveCsv {
                         Tap.DOUBLE,
                         GeneralLocation.TOP_RIGHT,
                         Press.THUMB,
+                        InputDevice.SOURCE_UNKNOWN,
+                        MotionEvent.BUTTON_PRIMARY
+                    )
+                )
+            counter == 5 ->
+                action = actionWithAssertions(
+                    GeneralClickAction(
+                        Tap.SINGLE,
+                        GeneralLocation.VISIBLE_CENTER,
+                        Press.THUMB,
+                        InputDevice.SOURCE_UNKNOWN,
+                        MotionEvent.BUTTON_PRIMARY
+                    )
+                )
+            counter == 6 ->
+                action = actionWithAssertions(
+                    GeneralClickAction(
+                        Tap.SINGLE,
+                        GeneralLocation.BOTTOM_CENTER,
+                        Press.FINGER,
+                        InputDevice.SOURCE_UNKNOWN,
+                        MotionEvent.BUTTON_PRIMARY
+                    )
+                )
+            counter == 7 ->
+                action = actionWithAssertions(
+                    GeneralClickAction(
+                        Tap.LONG,
+                        GeneralLocation.CENTER_RIGHT,
+                        Press.PINPOINT,
+                        InputDevice.SOURCE_UNKNOWN,
+                        MotionEvent.BUTTON_PRIMARY
+                    )
+                )
+            counter == 8 ->
+                action = actionWithAssertions(
+                    GeneralClickAction(
+                        Tap.DOUBLE,
+                        GeneralLocation.TOP_RIGHT,
+                        Press.THUMB,
+                        InputDevice.SOURCE_UNKNOWN,
+                        MotionEvent.BUTTON_PRIMARY
+                    )
+                )
+            counter == 9 ->
+                action = actionWithAssertions(
+                    GeneralClickAction(
+                        Tap.SINGLE,
+                        GeneralLocation.VISIBLE_CENTER,
+                        Press.THUMB,
+                        InputDevice.SOURCE_UNKNOWN,
+                        MotionEvent.BUTTON_PRIMARY
+                    )
+                )
+            counter == 10 ->
+                action = actionWithAssertions(
+                    GeneralClickAction(
+                        Tap.SINGLE,
+                        GeneralLocation.BOTTOM_CENTER,
+                        Press.FINGER,
                         InputDevice.SOURCE_UNKNOWN,
                         MotionEvent.BUTTON_PRIMARY
                     )
