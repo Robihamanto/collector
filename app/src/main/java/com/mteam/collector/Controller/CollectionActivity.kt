@@ -355,7 +355,8 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
         try {
             val currentTime = getCurrentTime().toString()
-            fileWriter = FileWriter(File(android.os.Environment.getExternalStorageDirectory(), "CollectorRawData_${currentTime}.csv"))
+            val dir = File("/sdcard/collector/").mkdirs()
+            fileWriter = FileWriter(File("/sdcard/collector/", "CollectorRawData_${currentTime}.csv"))
             fileWriter.append(CSV_HEADER)
             fileWriter.append('\n')
             for (data in rawData) {
