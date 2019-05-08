@@ -349,7 +349,6 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         return currentDate
     }
 
-
     fun writeCsvFile() {
         val CSV_HEADER = "Pitch,Roll,Azimuth,RawX,RawY,TouchPreassure,TouchSize"
         var fileWriter: FileWriter? = null
