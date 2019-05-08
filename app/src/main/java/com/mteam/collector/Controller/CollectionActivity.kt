@@ -30,6 +30,7 @@ import android.support.v4.content.ContextCompat
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.system.exitProcess
 
 
 class CollectionActivity : AppCompatActivity(), SensorEventListener {
@@ -68,7 +69,6 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
     }
 
     fun simulateTouch() {
-
         println("simulate done")
     }
 
@@ -101,6 +101,7 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         currentNumberShouldPickTextView.text = currentNumber.toString()
 
         //CurrentStatus
+        currentNumberClickedTextView.text = currentNumber.toString()
         currentTotalFlickTextView.text = currentFlick.toString()
 
         //CurrentSensor
@@ -226,6 +227,7 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     fun collectionNumberDidTap() {
         addCounter()
+        handleSession()
         setupUI()
         nextNumber()
         printRawData()
@@ -235,12 +237,15 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
         if (counter < numberShouldPick.count() - 1) {
             counter += 1
         }
+
+        if (counter == 4) {
+            writeCsvFile()
+        }
     }
 
     fun handleSession() {
-        currentNumber += 1
 
-        if (currentNumber == 40) {
+        if (counter == 40) {
             currentNumber = 0
             currentSession += 1
         }
@@ -248,7 +253,6 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     fun nextNumber() {
         val currentNumberShouldPick = numberShouldPick[counter]
-
         for (i in 0 until collectionNumbers.count()) {
             if (this.collectionNumbers[i].number == currentNumberShouldPick) {
                 this.collectionNumbers[i].isShouldSelected = true
@@ -264,10 +268,10 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
-        Handler().postDelayed({
-            simulateTouch()
-            setupUI()
-        }, 3000)
+//        Handler().postDelayed({
+//            simulateTouch()
+//            setupUI()
+//        }, 3000)
 
         mLight.also { light ->
             sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL)
@@ -337,19 +341,16 @@ class CollectionActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        writeCsvFile()
     }
 
     fun getCurrentTime(): String {
         val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
-        System.out.println(" C DATE is  " +currentDate)
         return currentDate
     }
 
 
     fun writeCsvFile() {
-
         val CSV_HEADER = "Pitch,Roll,Azimuth,RawX,RawY,TouchPreassure,TouchSize"
         var fileWriter: FileWriter? = null
 
